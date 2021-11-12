@@ -1,0 +1,51 @@
+body {
+    position: relative;
+}
+
+.navbarItemCustom,
+.navbarItemCustom a {
+    color: #fff;
+}
+
+
+.footerCustom {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    background-color: #dfeaff;
+    padding-top: 25px;
+}
+
+.productPage {
+    margin-bottom: 150px;
+}
+
+.productItem {
+    margin-top: 50px;
+}
+
+.productItem h2 {
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-bottom: 1px;
+}
+
+.productItem .productSubtitle {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.productItem .productPrice {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.productPagePrice {
+    font-size: 50px;
+}
+
+.cart-icon {
+    height: 20px;
+    padding-left: 20px;
+}
