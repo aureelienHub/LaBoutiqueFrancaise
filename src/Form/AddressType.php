@@ -48,7 +48,7 @@ class AddressType extends AbstractType
                 'label' => 'Numéro de téléphone'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider mon addresse',
+                'label' => 'Valider mon adresse',
                 'attr' => [
                     'class' => 'btn-block btn-info'
                 ]
