@@ -39,8 +39,7 @@ class OrderController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ( $form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
         }
 
         return $this->render('order/order.html.twig', [
@@ -59,21 +58,21 @@ class OrderController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ( $form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $date = new DateTime();
             $carriers = $form->get('carriers')->getData();
             $delivery = $form->get('addresses')->getData();
-            $deliveryContent = $delivery->getFirstName() .' '. $delivery->getLastName();
-            $deliveryContent .= '<br>'.$delivery->getPhone();
+            $deliveryContent = $delivery->getFirstName() . ' ' . $delivery->getLastName();
+            $deliveryContent .= '<br>' . $delivery->getPhone();
 
             if ($delivery->getCompany()) {
-                $deliveryContent .= '<br>'.$delivery->getCompany();
+                $deliveryContent .= '<br>' . $delivery->getCompany();
             }
 
-            $deliveryContent .= '<br>'.$delivery->getAddress();
-            $deliveryContent .= '<br>'.$delivery->getPostal(). ' '.$delivery->getCity();
-            $deliveryContent .= '<br>'.$delivery->getCountry();
+            $deliveryContent .= '<br>' . $delivery->getAddress();
+            $deliveryContent .= '<br>' . $delivery->getPostal() . ' ' . $delivery->getCity();
+            $deliveryContent .= '<br>' . $delivery->getCountry();
 
 
             $order = new Order();
@@ -85,7 +84,7 @@ class OrderController extends AbstractController
             $order->setIsPaid(0);
 
             $this->entityManager->persist($order);
-
+            
             foreach ($cart->getFull() as $product) {
                 $orderDetails = new OrderDetails();
                 $orderDetails->setMyOrder($order);
@@ -94,9 +93,12 @@ class OrderController extends AbstractController
                 $orderDetails->setPrice($product['product']->getPrice());
                 $orderDetails->setTotal($product['product']->getPrice() * $product['quantity']);
                 $this->entityManager->persist($orderDetails);
+
             }
 
-            $this->entityManager->flush();
+            // $this->entityManager->flush();
+
+
 
             return $this->render('order/add.html.twig', [
                 'cart' => $cart->getFull(),
