@@ -62,7 +62,7 @@ class StripeController extends AbstractController
 
                 $price = \Stripe\Price::create([
                     'product' =>  $idPriceCarrier,
-                    'unit_amount' => $order->getCarrierPrice() * 100,
+                    'unit_amount' => $order->getCarrierPrice(),
                     'currency' => 'eur',
                   ]);
                 
@@ -74,24 +74,24 @@ class StripeController extends AbstractController
 
                 ];
 
-        $checkout_session = Session::create([
-            'customer_email' => $this->getUser()->getEmail(),
-            'line_items' => [
-                $productsForStripe
-            ],
-
-            'mode' => 'payment',
-
-            'success_url' => $YOUR_DOMAIN . '/success.html',
-
-            'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
-
-        ]);
-
-        // header("HTTP/1.1 303 See Other");
-
-        // header("Location: " . $checkout_session->url);
+                $checkout_session = Session::create([
+                    'customer_email' => $this->getUser()->getEmail(),
+                    'line_items' => [
+                        $productsForStripe
+                    ],
+        
+                    'mode' => 'payment',
+        
+                    'success_url' => $YOUR_DOMAIN . 'commande/merci/{CHECKOUT_SESSION_ID}',
+        
+                    'cancel_url' => $YOUR_DOMAIN . 'commande/erreur/{CHECKOUT_SESSION_ID}',
+        
+                ]);
+        
+                $order->setStripeSessionId($checkout_session->id);
+        
+                $entityManager->flush();
 
         return $this->redirect($checkout_session->url);
-    }
+    } 
 }
