@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Classe\Cart;
+use App\Classe\Mail;
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,10 @@ class OrderValidateController extends AbstractController
             $cart->remove();
             $order->setIsPaid(1);
             $this->entityManager->flush();
+
+            $mail = new Mail();
+            $content = 'Bonjour '.$order->getUser()->getFirstName().'<br> Merci pour votre commande' .$order->getReference();
+            $mail->send($order->getUser()->getEmail(), $order->getUser()->getFirstName(), 'Votre commande est validée', $content);
         }
 
         return $this->render('order_validate/validate.html.twig', [
