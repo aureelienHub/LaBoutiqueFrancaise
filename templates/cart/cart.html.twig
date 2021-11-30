@@ -20,6 +20,7 @@
 			</thead>
 			<tbody>
 				{% set total = null %}
+				{% set nb_produit = null %}
 				{% for product in cart %}
 					<tr>
 						<th>
@@ -51,14 +52,14 @@
 					</tr>
 
 					{% set total = total + (product.product.price * product.quantity ) %}
+					{% set nb_produit = nb_produit + product.quantity %}
 				{% endfor %}
 			</tbody>
 		</table>
 
 		<div class="text-right">
 
-			<b>Nombre de produit :</b>
-			{{ cart|length }}
+			<p><b> Nombre de produits :</b> {{ nb_produit }} </p>
 			<br>
 			<b>Total :
 				{{ ( total/ 100)  | number_format(2, ',', '.') }}
