@@ -1,15 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - La boutique Francaise{% endblock %}
+{% block title %}Mon compte - La boutique Francaise
+{% endblock %}
 
 {% block content %}
-    <h1>Mon compte</h1>
+	<h1>Mon compte</h1>
+	{% if is_granted("ROLE_ADMIN") %}
+		<small>
+			<a href="/admin">Vous êtes un administrateur, acceder au back office</a>
+		</small>
+	{% endif %}
 
-    <p>Bienvenue {{ app.user.firstname }} dans votre compte.<p>
-    <p>C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.<p>
+	<p>Bienvenue
+		{{ app.user.firstname }}dans votre compte.
+	</p>
+	<p></p>
+	<p>C'est dans cet espace que vous allez pouvoir gérer toutes vos informations personnelles.</p>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="account-item">
+					<a href="{{ path('account_password') }}"><img src="{{asset('assets/images/secure.png')}}"><br>Modifier mon mot de passe</a><br></div>
+			</div>
+			<div class="col-md-4">
+				<div class="account-item">
+					<a href="{{ path('account_address') }}"><img src="{{asset('assets/images/address.png')}}"><br>Gérer mes adresses</a><br></div>
+			</div>
+			<div class="col-md-4">
+				<div class="account-item">
+					<a href="{{ path('account_order') }}"><img src="{{asset('assets/images/package.png')}}"><br>Mes commandes</a><br></div>
+			</div>
+		</div>
 
-    <a href="{{ path('account_password') }}">Modifier mon mot de passe</a><br>
-    <a href="{{ path('account_address') }}">Gérer mes adresses</a><br>
-    <a href="{{ path('account_order') }}">Mes commandes</a><br>
+	{% endblock %}
 
-{% endblock %}

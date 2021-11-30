@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page introuvable - La boutique Francaise{% endblock %}
+
+{% block content %}
+    <div class="block-small">
+    <h2 class="text-center">ERREUR 404</h2>
+    <p class="text-center">Il semblerait que la page demandé soit introuvable, <a href="{{ path('home')}}">repartez du bon pied</a> </p>
+    </div>
+
+{% endblock %}
